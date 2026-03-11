@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dropout Predictor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>Student Dropout Risk Prediction</h2>
+
+<form id="predictionForm">
+
+    <label>Age at Enrollment:</label><br>
+    <input type="number" id="age"><br><br>
+
+    <label>Gender:</label><br>
+<select id="gender">
+  <option value="0">Female</option>
+  <option value="1">Male</option>
+</select><br><br>
+
+    <label>1st Sem Units Approved:</label><br>
+    <input type="number" id="approved1"><br><br>
+
+    <label>1st Sem Grade:</label><br>
+    <input type="number" id="grade1"><br><br>
+
+    <label>2nd Sem Units Approved:</label><br>
+    <input type="number" id="approved2"><br><br>
+
+    <label>2nd Sem Grade:</label><br>
+    <input type="number" id="grade2"><br><br>
+
+    <label>Tuition Fees Up To Date:</label><br>
+<select id="fees">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select><br><br>
+
+    <label>Scholarship Holder:</label><br>
+<select id="scholarship">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select><br><br>
+    <button type="button" onclick="predictDropout()">Predict</button>
+
+</form>
+
+<h3 id="result"></h3>
+
+<script src="script.js"></script>
+
+</body>
+</html>
