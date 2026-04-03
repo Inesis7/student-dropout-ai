@@ -1,3 +1,19 @@
-# Student Dropout Risk Prediction System
+# Student Dropout Prediction System
 
-End-to-End AI System built using Flask and Machine Learning
+This project predicts student dropout risk using Machine Learning.
+
+## Tech Stack
+- Python (Flask)
+- Scikit-learn
+- HTML, CSS, JavaScript
+
+## Features
+- User input interface
+- AI prediction system
+- Risk classification
+- Suggestions for improvement
+
+## How to Run
+1. Go to backend folder
+2. Run: python app.py
+3. Open frontend/index.html

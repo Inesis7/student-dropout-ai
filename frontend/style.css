@@ -1,61 +1,172 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    margin: 0;
+    min-height: 100vh;
+
+    background: radial-gradient(circle at top left, #667eea, #764ba2);
+
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* main container */
-form {
+/* MAIN LAYOUT */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
     background: white;
-    padding: 25px 30px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-    width: 350px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+/* HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
-/* title */
+/* LOGO */
+.logo {
+    width: 100px;
+    height: 100px;
+    padding: 10px;              /* 🔥 THIS ADDS SPACE INSIDE */
+    background: white;         /* makes it look like a card */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+/* BACKGROUND DESIGN BLOBS */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    z-index: 0;
+    filter: blur(120px);
+}
+
+/* TOP LEFT GLOW */
+body::before {
+    top: -100px;
+    left: -100px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* BOTTOM RIGHT GLOW */
+body::after {
+    bottom: -100px;
+    right: -100px;
+    background: rgba(255, 255, 255, 0.1);
+}
+/* TITLE */
+.header h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+/* SUBTITLE */
+.subtitle {
+    margin: 2px 0 0 0;
+    font-size: 19px;
+    color: #000000;
+}
+/* HEADER */
 h2 {
     text-align: center;
+    font-size: 28px;
+    margin-bottom: 5px;
 }
 
-/* labels */
-label {
-    font-weight: 600;
-    font-size: 14px;
+h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #444;
 }
 
-/* inputs */
-input, select {
+/* STEP SECTION */
+.step {
+    animation: fade 0.3s ease;
+}
+
+/* GRID FOR INPUTS */
+.step input,
+.step select {
     width: 100%;
-    padding: 8px;
-    margin-top: 4px;
-    margin-bottom: 12px;
-    border-radius: 5px;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    font-size: 15px;
 }
 
-/* button */
+/* BUTTONS */
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
+    padding: 12px 20px;
+    margin-top: 15px;
+    margin-right: 10px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
     font-size: 15px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    opacity: 0.9;
 }
 
-/* result */
+/* RESULT BOX */
+#resultBox {
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    background: #f9faff;
+    border-left: 8px solid #ccc;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* RESULT TEXT */
+#resultBox h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
 #result {
-    text-align: center;
-    margin-top: 15px;
-    font-weight: bold;
+    font-size: 16px;
+}
+
+/* COLORS */
+.result-red {
+    border-left-color: #e74c3c;
+    background: #fff5f5;
+}
+
+.result-orange {
+    border-left-color: #f39c12;
+    background: #fff8e6;
+}
+
+.result-green {
+    border-left-color: #2ecc71;
+    background: #f0fff5;
+}
+
+/* ANIMATION */
+@keyframes fade {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
 }

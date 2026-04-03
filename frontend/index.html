@@ -7,47 +7,96 @@
 
 <body>
 
-<h2>Student Dropout Risk Prediction</h2>
+<div class="header">
 
-<form id="predictionForm">
+    <img src="logo.jpg" class="logo">
 
-    <label>Age at Enrollment:</label><br>
-    <input type="number" id="age"><br><br>
+    <div>
+        <h1>🎓 Student Dropout Predictor</h1>
+        <h2><p class="subtitle">Powered by AI • Predicting student success</p></h2>
+    </div>
 
-    <label>Gender:</label><br>
-<select id="gender">
-  <option value="0">Female</option>
-  <option value="1">Male</option>
-</select><br><br>
+</div>
+<div class="container">
+    <!-- <img src="logo.jpg" alt="Logo" style="width:120px; height:100px;">
 
-    <label>1st Sem Units Approved:</label><br>
-    <input type="number" id="approved1"><br><br>
+    <h2>🎓 Student Dropout Predictor</h2>
 
-    <label>1st Sem Grade:</label><br>
-    <input type="number" id="grade1"><br><br>
+    <p style="text-align:center; color:#777; margin-bottom:50px;">
+        AI-powered system to predict student dropout risk
+    </p> -->
+    <!-- STEP 1 -->
+    <div class="step" id="step1">
+        <h3>👤 Student Information</h3>
 
-    <label>2nd Sem Units Approved:</label><br>
-    <input type="number" id="approved2"><br><br>
+        <input type="text" id="name" placeholder="Full Name"
+        oninput="validateName()" 
+        onkeypress="return /[A-Za-z ]/.test(event.key)">
 
-    <label>2nd Sem Grade:</label><br>
-    <input type="number" id="grade2"><br><br>
+        <input type="text" id="regno" placeholder="Registration Number"
+        oninput="validateRegNo()" 
+        onkeypress="return /[0-9]/.test(event.key)">
 
-    <label>Tuition Fees Up To Date:</label><br>
-<select id="fees">
-  <option value="1">Yes</option>
-  <option value="0">No</option>
-</select><br><br>
+        <!-- Department -->
+        <select id="department" onchange="updateCourses()">
+            <option value="">Select Department</option>
+            <option value="sciences">School of Sciences</option>
+            <option value="commerce">School of Commerce & Finance</option>
+            <option value="business">School of Business & Management</option>
+            <option value="arts">School of Arts & Humanities</option>
+            <option value="law">School of Law</option>
+        </select>
 
-    <label>Scholarship Holder:</label><br>
-<select id="scholarship">
-  <option value="1">Yes</option>
-  <option value="0">No</option>
-</select><br><br>
-    <button type="button" onclick="predictDropout()">Predict</button>
+        <!-- Course -->
+        <select id="course">
+            <option value="">Select Course</option>
+        </select>
 
-</form>
+        <button onclick="nextStep(2)">Next ➡️</button>
+    </div>
 
-<h3 id="result"></h3>
+    <!-- STEP 2 -->
+    <div class="step" id="step2" style="display:none;">
+        <h3>💰 Financial Details</h3>
+
+        <select id="fees">
+            <option value="1">Fees Paid</option>
+            <option value="0">Fees Not Paid</option>
+        </select>
+
+        <select id="scholarship">
+            <option value="1">Scholarship</option>
+            <option value="0">No Scholarship</option>
+        </select>
+
+        <button onclick="prevStep(1)">⬅️ Back</button>
+        <button onclick="handleFinancial()">Next ➡️</button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3" style="display:none;">
+        <h3>📊 Academic Details</h3>
+
+        <h4>Semester 1</h4>
+        <input type="number" id="total1" placeholder="Total Subjects">
+        <input type="number" id="approved1" placeholder="Subjects Passed">
+        <input type="number" id="grade1" placeholder="Average Grade (Out of 20)">
+
+        <h4>Semester 2</h4>
+        <input type="number" id="total2" placeholder="Total Subjects">
+        <input type="number" id="approved2" placeholder="Subjects Passed">
+        <input type="number" id="grade2" placeholder="Average Grade (Out of 20)">
+
+        <button onclick="prevStep(2)">⬅️ Back</button>
+        <button onclick="predictDropout()">🔍 Predict</button>
+    </div>
+
+    <!-- RESULT -->
+    <div id="resultBox">
+        <p id="result"></p>
+    </div>
+
+</div>
 
 <script src="script.js"></script>
 
