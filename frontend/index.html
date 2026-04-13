@@ -1,104 +1,237 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Student Dropout Predictor</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dropout Predictor - AI-Powered Risk Analysis</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-
 <body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="logo.jpg" alt="Logo" class="logo" onerror="this.style.display='none'">
+                <div class="logo-text">
+                    <h1>Student Dropout Predictor</h1>
+                    <p>AI-Powered Academic Risk Analysis System</p>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<div class="header">
+    <div class="container">
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" data-step="1">
+                <div class="step-circle">1</div>
+                <span>Student Info</span>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-circle">2</div>
+                <span>Finance</span>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-circle">3</div>
+                <span>Academics</span>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-circle">4</div>
+                <span>Result</span>
+            </div>
+        </div>
 
-    <img src="logo.jpg" class="logo">
+        <!-- Main Form -->
+        <div class="form-container">
+            <!-- Step 1: Student Info -->
+            <div class="step-content active" id="step1">
+                <div class="card">
+                    <h2><i class="fas fa-user"></i> Student Information</h2>
+                    <form id="studentForm">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" placeholder="Enter full name" required>
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="regNumber">Registration Number *</label>
+                                <input type="text" id="regNumber" placeholder="e.g., 2023001" required>
+                                <span class="error-message" id="regError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="department">Department *</label>
+                                <select id="department" required>
+                                    <option value="">Select Department</option>
+                                    <option value="sciences">School of Sciences</option>
+                                    <option value="commerce">School of Commerce & Finance</option>
+                                    <option value="business">School of Business & Management</option>
+                                    <option value="arts">School of Arts & Humanities</option>
+                                    <option value="law">School of Law</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="course">Course *</label>
+                            <select id="course" required disabled>
+                                <option value="">Select Course (after department)</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" onclick="nextStep(1)">
+                        <i class="fas fa-arrow-right"></i> Next
+                    </button>
+                </div>
+            </div>
 
-    <div>
-        <h1>🎓 Student Dropout Predictor</h1>
-        <h2><p class="subtitle">Powered by AI • Predicting student success</p></h2>
+            <!-- Step 2: Financial Details -->
+            <div class="step-content" id="step2">
+                <div class="card">
+                    <h2><i class="fas fa-dollar-sign"></i> Financial Details</h2>
+                    <form id="financeForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Fees Paid</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="feesPaid" value="yes" required> Yes
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="feesPaid" value="no" required> No
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Scholarship</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="scholarship" value="yes" required> Yes
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="scholarship" value="no" required> No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-secondary" onclick="prevStep(2)">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn btn-primary" onclick="nextStep(2)">
+                        <i class="fas fa-arrow-right"></i> Next
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Academic Details -->
+            <div class="step-content" id="step3">
+                <div class="card">
+                    <h2><i class="fas fa-graduation-cap"></i> Academic Performance</h2>
+                    <p class="subtitle">Enter details for both semesters</p>
+                    
+                    <!-- Semester 1 -->
+                    <div class="semester-section">
+                        <h3>Semester 1</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Total Subjects</label>
+                                <input type="number" id="sem1_total" min="1" max="20" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Subjects Passed</label>
+                                <input type="number" id="sem1_passed" min="0" max="20" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Average Grade (out of 20)</label>
+                                <input type="number" id="sem1_grade" min="0" max="20" step="0.1" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Semester 2 -->
+                    <div class="semester-section">
+                        <h3>Semester 2</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Total Subjects</label>
+                                <input type="number" id="sem2_total" min="1" max="20" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Subjects Passed</label>
+                                <input type="number" id="sem2_passed" min="0" max="20" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Average Grade (out of 20)</label>
+                                <input type="number" id="sem2_grade" min="0" max="20" step="0.1" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-secondary" onclick="prevStep(3)">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn btn-primary" onclick="predictStudent()">
+                        <i class="fas fa-brain"></i> Predict Risk
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Result -->
+<div class="step-content" id="step4">
+    <div class="result-container">
+        <div class="result-card" id="resultCard">
+            <div class="result-icon" id="resultIcon">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <h2 id="resultTitle">Analyzing...</h2>
+            <p id="resultMessage">Please wait while we analyze the student's data</p>
+            <div class="result-suggestion" id="resultSuggestion"></div>
+            
+            <!-- 🆕 HELP CONTACTS SECTION -->
+            <div class="help-section" id="helpSection" style="display: none;">
+                <h3><i class="fas fa-life-ring"></i> Need Help?</h3>
+                <div class="contact-cards">
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h4>Emergency Counseling</h4>
+                        <p><strong>+1 (555) 123-4567</strong></p>
+                        <p>24/7 Student Support Hotline</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Academic Advisor</h4>
+                        <p><strong>advisor@university.edu</strong></p>
+                        <p>Mon-Fri: 9AM-5PM</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Student Services</h4>
+                        <p><strong>studentservices@university.edu</strong></p>
+                        <p>Financial Aid & Scholarships</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-secondary" onclick="resetForm()">
+                <i class="fas fa-redo"></i> Analyze New Student
+            </button>
+        </div>
     </div>
-
 </div>
-<div class="container">
-    <!-- <img src="logo.jpg" alt="Logo" style="width:120px; height:100px;">
 
-    <h2>🎓 Student Dropout Predictor</h2>
-
-    <p style="text-align:center; color:#777; margin-bottom:50px;">
-        AI-powered system to predict student dropout risk
-    </p> -->
-    <!-- STEP 1 -->
-    <div class="step" id="step1">
-        <h3>👤 Student Information</h3>
-
-        <input type="text" id="name" placeholder="Full Name"
-        oninput="validateName()" 
-        onkeypress="return /[A-Za-z ]/.test(event.key)">
-
-        <input type="text" id="regno" placeholder="Registration Number"
-        oninput="validateRegNo()" 
-        onkeypress="return /[0-9]/.test(event.key)">
-
-        <!-- Department -->
-        <select id="department" onchange="updateCourses()">
-            <option value="">Select Department</option>
-            <option value="sciences">School of Sciences</option>
-            <option value="commerce">School of Commerce & Finance</option>
-            <option value="business">School of Business & Management</option>
-            <option value="arts">School of Arts & Humanities</option>
-            <option value="law">School of Law</option>
-        </select>
-
-        <!-- Course -->
-        <select id="course">
-            <option value="">Select Course</option>
-        </select>
-
-        <button onclick="nextStep(2)">Next ➡️</button>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Processing prediction...</p>
     </div>
 
-    <!-- STEP 2 -->
-    <div class="step" id="step2" style="display:none;">
-        <h3>💰 Financial Details</h3>
-
-        <select id="fees">
-            <option value="1">Fees Paid</option>
-            <option value="0">Fees Not Paid</option>
-        </select>
-
-        <select id="scholarship">
-            <option value="1">Scholarship</option>
-            <option value="0">No Scholarship</option>
-        </select>
-
-        <button onclick="prevStep(1)">⬅️ Back</button>
-        <button onclick="handleFinancial()">Next ➡️</button>
-    </div>
-
-    <!-- STEP 3 -->
-    <div class="step" id="step3" style="display:none;">
-        <h3>📊 Academic Details</h3>
-
-        <h4>Semester 1</h4>
-        <input type="number" id="total1" placeholder="Total Subjects">
-        <input type="number" id="approved1" placeholder="Subjects Passed">
-        <input type="number" id="grade1" placeholder="Average Grade (Out of 20)">
-
-        <h4>Semester 2</h4>
-        <input type="number" id="total2" placeholder="Total Subjects">
-        <input type="number" id="approved2" placeholder="Subjects Passed">
-        <input type="number" id="grade2" placeholder="Average Grade (Out of 20)">
-
-        <button onclick="prevStep(2)">⬅️ Back</button>
-        <button onclick="predictDropout()">🔍 Predict</button>
-    </div>
-
-    <!-- RESULT -->
-    <div id="resultBox">
-        <p id="result"></p>
-    </div>
-
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
