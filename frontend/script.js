@@ -1,4 +1,5 @@
 // Global state
+let chart;
 let currentStep = 1;
 const courseData = {
     sciences: ['Computer Science', 'Physics', 'Chemistry', 'Mathematics', 'Biology'],
@@ -257,6 +258,10 @@ function prevStep(stepNum) {
 
 function showHighRiskDueToFees() {
     showStep(4);
+
+    // 🔥 THIS LINE MUST BE INSIDE FUNCTION
+    document.getElementById("chartContainer").style.display = "none";
+
     const resultIcon = document.getElementById('resultIcon');
     const resultTitle = document.getElementById('resultTitle');
     const resultMessage = document.getElementById('resultMessage');
@@ -318,6 +323,10 @@ async function predictStudent() {
     console.log('📤 Mock Backend Response:', mockResult);
     
     displayResult(mockResult);
+
+// 🔥 NEW ADDITIONS
+createChart(studentData);
+showRiskLevel(studentData);
     showLoading(false);
 }
 
@@ -488,3 +497,69 @@ window.nextStep = nextStep;
 window.prevStep = prevStep;
 window.predictStudent = predictStudent;
 window.resetForm = resetForm;
+// 📊 GRAPH FUNCTION
+function createChart(data) {
+    const ctx = document.getElementById('marksChart').getContext('2d');
+
+    // ✅ Convert to percentage
+    const sem1PassPercent = (data.sem1_passed / data.sem1_total) * 100;
+    const sem2PassPercent = (data.sem2_passed / data.sem2_total) * 100;
+    const sem1GradePercent = (data.sem1_grade / 20) * 100;
+    const sem2GradePercent = (data.sem2_grade / 20) * 100;
+
+    const labels = ["Sem1 Pass %", "Sem1 Grade %", "Sem2 Pass %", "Sem2 Grade %"];
+    const values = [
+        sem1PassPercent,
+        sem1GradePercent,
+        sem2PassPercent,
+        sem2GradePercent
+    ];
+
+    // 🔥 SHOW GRAPH
+    document.getElementById("chartContainer").style.display = "block";
+
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Performance (%)',
+                data: values,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+}
+
+
+// 🎯 RISK LEVEL FUNCTION
+function showRiskLevel(data) {
+    const riskEl = document.getElementById("riskLevelText");
+
+    const avgGrade = (data.sem1_grade + data.sem2_grade) / 2;
+
+    let risk = "Low Risk";
+
+    if (avgGrade < 12) {
+        risk = "High Risk";
+        riskEl.style.color = "red";
+    } else if (avgGrade < 16) {
+        risk = "Medium Risk";
+        riskEl.style.color = "orange";
+    } else {
+        risk = "Low Risk";
+        riskEl.style.color = "green";
+    }
+
+    riskEl.innerText = "📊 Performance Risk: " + risk;
+}
